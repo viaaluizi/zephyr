@@ -1,0 +1,17 @@
+# Logs
+*.log
+zephyr_logs.log
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment variables
+.env
+
+# Excel files
+*.xlsx
+
+# VS Code settings
+.vscode/

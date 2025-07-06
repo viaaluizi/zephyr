@@ -16,6 +16,12 @@ A automação é feita via API do Zephyr Scale, utilizando Python e bibliotecas 
 - Mapeamento de nomes de cenários para suas chaves (keys) retornadas pela API.
 - Integração com a API REST do Zephyr Scale.
 
+## Prompt para Geração de Cenários BDD
+Este repositório inclui um prompt especializado que facilita a criação de cenários de teste comportamentais (BDD) a partir de documentos de requisitos.
+O prompt orienta a análise crítica de regras de negócio e gera automaticamente os cenários no formato Gherkin (Given, When, Then), priorizando os caminhos felizes e regras principais.
+Ideal para equipes de QA, produto e desenvolvimento que desejam acelerar a definição de testes com foco em comportamento.
+O prompt se encontra no arquivo  `prmpt.txt
+
 ## 📦 Pré-requisitos
 
 - Python 3.8 ou superior
@@ -84,5 +90,7 @@ Solução: Verifique se o conteúdo do campo bdd está em formato de texto e seg
   - Edite o .env com seu token da API.
 
    - Execute o projeto: ./run.sh
+
+
 
 

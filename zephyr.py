@@ -3,6 +3,17 @@ from dotenv import load_dotenv
 import pandas as pd
 import requests
 import time
+import logging
+
+# Configuração dos logs
+logging.basicConfig(
+    level=logging.INFO,  # Configura o nível de log para INFO
+    format="%(asctime)s - %(levelname)s - %(message)s",  # Formato dos logs
+    handlers=[
+        logging.FileHandler("zephyr_logs.log"),  # Salva os logs em um arquivo
+        logging.StreamHandler()  # Adiciona um handler para exibir logs no console
+    ]
+)
 
 # ============================
 # CONFIGURAÇÕES DO USUÁRIO
@@ -21,18 +32,11 @@ headers = {
 excel_file = "cenarios_teste.xlsx"
 
 # ============================
-# 1ª LEITURA: CRIAR CENÁRIOS
+# FUNÇÕES AUXILIARES
 # ============================
 
-# Carrega o Excel com os dados dos cenários
-df = pd.read_excel(excel_file, engine="openpyxl")
-
-# Dicionário para mapear nome do cenário para sua chave (key) retornada pela API
-cenario_key_map = {}
-
-for _, row in df.iterrows():
-    # Monta o payload para criação do cenário
-    test_case_payload = {
+def create_payload(row):
+    return {
         "name": row["name"],
         "projectKey": row["projectKey"],
         "folderId": int(row["folderId"]),
@@ -44,6 +48,26 @@ for _, row in df.iterrows():
         "labels": row["labels"].split(",") if pd.notna(row["labels"]) else []
     }
 
+# ============================
+# 1ª LEITURA: CRIAR CENÁRIOS
+# ============================
+
+# Carrega o Excel com os dados dos cenários
+df = pd.read_excel(excel_file, engine="openpyxl")
+
+required_columns = ["name", "projectKey", "folderId", "priority", "status", "objective", "precondition", "componentId", "labels", "bdd"]
+missing_columns = [col for col in required_columns if col not in df.columns]
+
+if missing_columns:
+    raise ValueError(f"Falta informações importantes no seu arquivo, valide as colunas do seu arquivo excel {missing_columns}")
+
+# Dicionário para mapear nome do cenário para sua chave (key) retornada pela API
+cenario_key_map = {}
+
+for _, row in df.iterrows():
+    # Monta o payload para criação do cenário
+    test_case_payload = create_payload(row)
+
     # Requisição para criar o cenário
     response = requests.post(f"{base_url}/testcases", headers=headers, json=test_case_payload)
 
@@ -51,10 +75,11 @@ for _, row in df.iterrows():
         test_case = response.json()
         test_case_key = test_case["key"]
         cenario_key_map[row["name"]] = test_case_key
-        print(f"[OK] Cenário '{row['name']}' criado com key: {test_case_key}")
+        logging.info(f"Cenário '{row['name']}' criado com key: {test_case_key}")
     else:
-        print(f"[ERRO] Falha ao criar cenário '{row['name']}': {response.status_code}")
-        print(response.text)
+        logging.error(
+            f"Falha ao criar cenário '{row['name']}': {response.status_code}. Response: {response.text}"
+        )
 
     # Pausa de 1 segundo entre requisições
     time.sleep(1)
@@ -71,7 +96,7 @@ for _, row in df.iterrows():
     test_case_key = cenario_key_map.get(nome_cenario)
 
     if not test_case_key:
-        print(f"[AVISO] Cenário '{nome_cenario}' não foi criado. Pulando script BDD.")
+        logging.warning(f"Cenário '{nome_cenario}' não foi criado. Pulando script BDD.")
         continue
 
     # Limpa o conteúdo BDD (remove aspas extras e espaços)
@@ -83,9 +108,6 @@ for _, row in df.iterrows():
         "text": bdd
     }
 
-    # Exibe o payload BDD para depuração
-    # print(bdd_payload)
-
     # Requisição para adicionar script BDD
     bdd_response = requests.post(
         f"{base_url}/testcases/{test_case_key}/testscript",
@@ -95,8 +117,9 @@ for _, row in df.iterrows():
     time.sleep(1)
 
     if bdd_response.status_code in [200, 201]:
-        print(f"[OK] Script BDD adicionado ao cenário '{nome_cenario}'")
+        logging.info(f"Script BDD adicionado ao cenário '{nome_cenario}'")
     else:
-        print(f"[ERRO] Falha ao adicionar script BDD ao cenário '{nome_cenario}': {bdd_response.status_code}")
-        print(bdd_response.text)
+        logging.error(
+            f"Falha ao adicionar script BDD ao cenário '{nome_cenario}': {bdd_response.status_code}. Response: {bdd_response.text}"
+        )
 
