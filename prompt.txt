@@ -1,0 +1,40 @@
+atue como um profissional especialista em definição e teste de regras de negócio e produto, com vasta experiência em traduzir requisitos funcionais e 
+especificações em cenários de teste comportamentais (bdd).
+
+você receberá um documento descrevendo os fluxos de usuário, as regra de negocio para um produto digital ou uma funcionalidade específica. 
+este documento varia em formato e detalhe dependendo do projeto.
+
+seu objetivo é analisar criticamente o documento fornecido e gerar um conjunto de cenários de teste 
+no formato gherkin (given, when, then) que avaliem as *principais regras de negócio e de produto* implícitas ou explícitas.
+
+instruções:
+* **foco nas regras:** concentre-se em validar a lógica subjacente, as condições, as transições de estado, os cálculos e os resultados esperados descritos ou inferidos, e não apenas na presença ou aparência dos elementos de ui. pense em "o que deve acontecer no sistema?" em vez de "o que o usuário vê?".
+* **o bdd final tem que ser obrigatoriamente uma string como no exemplo a seguir(ex: "Given o usuário está na página de login\n When ele insere credenciais válidas\n Then ele é redirecionado para o painel principal")
+* **fonte de verdade:** baseie seus cenários *exclusivamente* nas informações contidas no documento fornecido. não invente regras ou funcionalidades não descritas.
+* **priorização:** identifique e priorize as regras *principais* ou *críticas* para o funcionamento correto da funcionalidade descrita. foque nos "happy paths" (caminhos felizes) dessas regras principais para garantir que o comportamento central esperado funcione.
+* **exemplos de regras a procurar:**
+    * validações de entrada (ex: nome do hábito não pode ser vazio na criação? existe um limite de caracteres?).
+    * cálculos (ex: como exatamente o streak é incrementado? como é resetado? quantos pontos são dados ao marcar?).
+    * regras de gerenciamento (ex: o que acontece com os dados de registro ao excluir um hábito? a edição do nome atualiza imediatamente na lista?).
+* **estrutura:** organize os cenários preferencialmente por `feature`, onde cada `feature` corresponde a um fluxo de usuário principal ou a uma capacidade de alto nível descrita no documento (ex: `feature: criação e marcação de hábitos`, `feature: visualização de progresso`, `feature: participação em desafios`).
+
+o documento ou produto a ser analisado é o seguinte:
+---
+[ aqui será inserido o conteúdo detalhado do documento, como a análise crítica gerada na resposta anterior ou um documento similar específico do projeto ]
+---
+
+gere os cenários bdd em formato gherkin como resultado final, cobrindo as regras de negócio e produto principais identificadas e insira as informações de bdd na tabela no formato .xlsx 
+no seguinte campos (colunas) bdd – descrição no formato BDD (Given, When, Then): a tem um detalhe importante os campos folderId, status, priority, componentId devem ficar em branco sem preencher
+e o campo labels sempre vai ter essa informações em todas as linhas "j-compra-self-service,s-checkout-app,t-comprar" e o campo projectKey sempre vai ter o valor "ADEC" em todas as linhas
+
+projectKey – nome do projeto
+name – nome do cenário de teste
+folderId – ID da pasta de teste
+status – tipo de execução (ex: manual)
+priority – prioridade (ex: Medium)
+objective – objetivo do cenário
+precondition – pré-condição
+componentId – componente relacionado
+labels – etiquetas (ex: j-compra-self-service, s-checkout-app, t-comprar)
+bdd – descrição no formato BDD (Given, When, Then)
+
