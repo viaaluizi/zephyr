@@ -31,9 +31,6 @@ df = pd.read_excel(excel_file, engine="openpyxl")
 cenario_key_map = {}
 
 for _, row in df.iterrows():
-    # Monta a descrição com objetivo e precondição
-    descricao = f"Objetivo: {row['objective']}\nPrecondição: {row['precondition']}"
-
     # Monta o payload para criação do cenário
     test_case_payload = {
         "name": row["name"],

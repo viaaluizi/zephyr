@@ -25,7 +25,8 @@ o documento ou produto a ser analisado é o seguinte:
 
 gere os cenários bdd em formato gherkin como resultado final, cobrindo as regras de negócio e produto principais identificadas e insira as informações de bdd na tabela no formato .xlsx 
 no seguinte campos (colunas) bdd – descrição no formato BDD (Given, When, Then): a tem um detalhe importante os campos folderId, status, priority, componentId devem ficar em branco sem preencher
-e o campo labels sempre vai ter essa informações em todas as linhas "j-compra-self-service,s-checkout-app,t-comprar" e o campo projectKey sempre vai ter o valor "ADEC" em todas as linhas
+e o campo labels sempre vai ter essa informações em todas as linhas "j-compra-self-service,s-checkout-app,t-comprar" e o campo projectKey sempre vai ter o valor "ADEC" em todas as linhas, o campo folderId em todas as linhas 
+tem que ser 11976985 em todas as linhas e o campo componentId tem que ser 10303 e o arquivo tem que ser nomeado como cenarios_teste
 
 projectKey – nome do projeto
 name – nome do cenário de teste
