@@ -15,9 +15,7 @@ logging.basicConfig(
     ]
 )
 
-# ============================
 # CONFIGURAÇÕES DO USUÁRIO
-# ============================
 
 # Substitua pelos valores reais da sua instância Zephyr
 base_url = "https://api.zephyrscale.smartbear.com/v2"
@@ -31,9 +29,7 @@ headers = {
 # Nome do arquivo Excel com os cenários
 excel_file = "cenarios_teste.xlsx"
 
-# ============================
 # FUNÇÕES AUXILIARES
-# ============================
 
 def create_payload(row):
     return {
@@ -48,9 +44,7 @@ def create_payload(row):
         "labels": row["labels"].split(",") if pd.notna(row["labels"]) else []
     }
 
-# ============================
 # 1ª LEITURA: CRIAR CENÁRIOS
-# ============================
 
 # Carrega o Excel com os dados dos cenários
 df = pd.read_excel(excel_file, engine="openpyxl")
@@ -84,11 +78,9 @@ for _, row in df.iterrows():
     # Pausa de 1 segundo entre requisições
     time.sleep(1)
 
-# ============================
-# 2ª LEITURA: ADICIONAR SCRIPT BDD E LABELS
-# ============================
+# 2ª LEITURA: ADICIONAR SCRIPT BDD
 
-# Lê novamente o Excel
+# Lê o Excel
 df = pd.read_excel(excel_file, engine="openpyxl")
 
 for _, row in df.iterrows():
