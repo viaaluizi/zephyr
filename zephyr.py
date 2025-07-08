@@ -69,8 +69,8 @@ for _, row in df.iterrows():
         test_case = response.json()
         test_case_key = test_case["key"]
         cenario_key_map[row["name"]] = test_case_key
-        logging.info(f"Cenário '{row['name']}' criado com key: {test_case_key}")
-    else:
+        logging.info(f"Cenário '{row['name']}' criado com sucesso! com a key: {test_case_key}")
+    elif response.status_code != 200:
         logging.error(
             f"Falha ao criar cenário '{row['name']}': {response.status_code}. Response: {response.text}"
         )
@@ -109,7 +109,7 @@ for _, row in df.iterrows():
     time.sleep(1)
 
     if bdd_response.status_code in [200, 201]:
-        logging.info(f"Script BDD adicionado ao cenário '{nome_cenario}'")
+        logging.info(f"Script BDD adicionado ao cenário com sucesso '{nome_cenario}'")
     else:
         logging.error(
             f"Falha ao adicionar script BDD ao cenário '{nome_cenario}': {bdd_response.status_code}. Response: {bdd_response.text}"
