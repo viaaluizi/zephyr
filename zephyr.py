@@ -35,12 +35,12 @@ def create_payload(row):
     return {
         "name": row["name"],
         "projectKey": row["projectKey"],
-        "folderId": int(row["folderId"]),
+        "folderId": int(row["folderId"]) if pd.notna(row["folderId"]) else None,
         "priority": row["priority"],
         "statusName": row["status"],
         "objective": row["objective"],
         "precondition": row["precondition"],
-        "componentId": int(row["componentId"]),
+        "componentId": int(row["componentId"])if pd.notna(row["componentId"]) else None,
         "labels": row["labels"].split(",") if pd.notna(row["labels"]) else []
     }
 
