@@ -92,9 +92,9 @@ Solução: Verifique se o conteúdo do campo bdd está em formato de texto e seg
    - Execute o projeto: ./run.sh
  
 ## 📘 Material de referencia
-Api do zephyr - https://support.smartbear.com/zephyr-scale-cloud/api-docs/#section/Authentication 
-Documentação - Python https://www.python.org/doc/ 
-Post no medium - https://medium.com/p/ce78e6e7c18f/edit
+- Api do zephyr https://support.smartbear.com/zephyr-scale-cloud/api-docs/#section/Authentication 
+- Documentação Python https://www.python.org/doc/ 
+- Post no medium https://medium.com/p/ce78e6e7c18f/edit
 
 
 
